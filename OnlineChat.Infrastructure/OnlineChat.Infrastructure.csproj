@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineChat.Application\OnlineChat.Application.csproj" />
+    <ProjectReference Include="..\OnlineChat.Core\OnlineChat.Core.csproj" />
+    <ProjectReference Include="..\OnlineChat.Persistence\OnlineChat.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

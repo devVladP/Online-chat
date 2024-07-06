@@ -1,3 +1,8 @@
+using OnlineChat.Application;
+using OnlineChat.Infrastructure;
+using OnlineChat.Persistence;
+using OnlineChat.Application;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OnlineChat
 {
@@ -12,7 +17,18 @@ namespace OnlineChat
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(type => type.ToString().Replace("+", "_"));
+                options.CustomOperationIds(apiDescription =>
+                    apiDescription.TryGetMethodInfo(out var methodInfo)
+                        ? methodInfo.Name
+                        : null);
+            });
+
+            builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddOnlineChatPersistence(builder.Configuration);
 
             var app = builder.Build();
 
@@ -20,7 +36,7 @@ namespace OnlineChat
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(x => x.DisplayOperationId());
             }
 
             app.UseHttpsRedirection();
