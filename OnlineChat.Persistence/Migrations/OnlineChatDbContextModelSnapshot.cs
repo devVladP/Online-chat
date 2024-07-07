@@ -79,6 +79,8 @@ namespace OnlineChat.Persistence.Migrations
 
                     b.HasIndex("GroupId");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Messages", "online-chatdb");
                 });
 
@@ -131,22 +133,34 @@ namespace OnlineChat.Persistence.Migrations
             modelBuilder.Entity("OnlineChat.Core.Domain.Messages.Models.Message", b =>
                 {
                     b.HasOne("OnlineChat.Core.Domain.Groups.Models.Group", "Group")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OnlineChat.Core.Domain.Users.Models.User", "Owner")
+                        .WithMany("Messages")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Group");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("OnlineChat.Core.Domain.Groups.Models.Group", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("UserGroups");
                 });
 
             modelBuilder.Entity("OnlineChat.Core.Domain.Users.Models.User", b =>
                 {
                     b.Navigation("GroupsOwner");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("UserGroups");
                 });

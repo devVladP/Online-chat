@@ -1,7 +1,6 @@
 using OnlineChat.Application;
 using OnlineChat.Infrastructure;
 using OnlineChat.Persistence;
-using OnlineChat.Application;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OnlineChat

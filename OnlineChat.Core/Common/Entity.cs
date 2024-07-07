@@ -14,7 +14,7 @@ public abstract class Entity
 
     protected static async Task ValidateAsync<T>(AbstractValidator<T> validator, T entity, CancellationToken cancellationToken)
     {
-        var validationResult = await validator.ValidateAsync(entity);
+        var validationResult = await validator.ValidateAsync(entity, cancellationToken);
         ThrowIfNotValid(validationResult);
     }
 

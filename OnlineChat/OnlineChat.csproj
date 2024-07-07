@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\chats\Requests\" />
-    <Folder Include="Domain\users\Requests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OnlineChat.Application\OnlineChat.Application.csproj" />
     <ProjectReference Include="..\OnlineChat.Infrastructure\OnlineChat.Infrastructure.csproj" />
     <ProjectReference Include="..\OnlineChat.Persistence\OnlineChat.Persistence.csproj" />

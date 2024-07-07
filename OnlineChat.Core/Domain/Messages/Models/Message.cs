@@ -2,6 +2,7 @@
 using OnlineChat.Core.Domain.Groups.Models;
 using OnlineChat.Core.Domain.Messages.Data;
 using OnlineChat.Core.Domain.Messages.Validators;
+using OnlineChat.Core.Domain.Users.Models;
 
 namespace OnlineChat.Core.Domain.Messages.Models;
 
@@ -9,9 +10,11 @@ public class Message : Entity
 {
     public Guid Id { get; private set; }
 
-    public string Content { get; set; }
+    public string Content { get; set; } = string.Empty;
 
     public Guid OwnerId { get; private set; }
+
+    public User Owner { get; private set; }
 
     public Guid GroupId { get; private set; }
 

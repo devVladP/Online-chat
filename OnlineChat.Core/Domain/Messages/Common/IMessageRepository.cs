@@ -12,5 +12,7 @@ public interface IMessageRepository
 
     public Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
-    public Task<IReadOnlyCollection<Message>> FindMessagesByUserId(Guid guid, CancellationToken cancellationToken);
+    public Task<IReadOnlyCollection<Message>> FindMessagesByUserId(Guid id, CancellationToken cancellationToken);
+
+    public Task<IReadOnlyCollection<Message>> FindMessagesByGroupId(Guid id, CancellationToken cancellationToken);
 }

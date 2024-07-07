@@ -2,4 +2,4 @@
 
 namespace OnlineChat.Application.Domain.Groups.Commands.DeleteGroup;
 
-public record DeleteGroupCommand(Guid GroupId, Guid OwnerId) : IRequest;
+public record DeleteGroupCommand(Guid GroupId, Guid OwnerId) : IRequest<Guid>;

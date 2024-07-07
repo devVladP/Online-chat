@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineChat.Application.Domain.Groups.Queries;
+namespace OnlineChat.Application.Domain.Groups.Queries.GetGroups;
 
 public record GroupDto
 {

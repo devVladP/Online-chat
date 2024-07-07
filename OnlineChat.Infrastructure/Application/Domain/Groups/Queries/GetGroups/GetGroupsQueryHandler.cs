@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using OnlineChat.Application.Domain.Groups.Queries;
+using OnlineChat.Application.Domain.Groups.Queries.GetGroups;
 using OnlineChat.Persistence;
 using PagesResponses;
 
