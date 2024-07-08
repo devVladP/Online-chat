@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineChat.Persistence", "O
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGets", "NuGets", "{A945316F-3AAF-4A3D-8B9B-04B97EC30903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageResponses", "PageResponses\PageResponses.csproj", "{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PageResponses", "PageResponses\PageResponses.csproj", "{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6F5F537F-013A-464E-A9C4-68C4AEAF712D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineChat.Test", "OnlineChat.Test\OnlineChat.Test.csproj", "{6DA3ABE5-989D-4EBB-937E-D6573E460FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,12 +51,17 @@ Global
 		{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DA3ABE5-989D-4EBB-937E-D6573E460FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA3ABE5-989D-4EBB-937E-D6573E460FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA3ABE5-989D-4EBB-937E-D6573E460FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA3ABE5-989D-4EBB-937E-D6573E460FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4532BFAE-EBF9-4CAD-8DBC-7F29986308B6} = {A945316F-3AAF-4A3D-8B9B-04B97EC30903}
+		{6DA3ABE5-989D-4EBB-937E-D6573E460FA6} = {6F5F537F-013A-464E-A9C4-68C4AEAF712D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F49918-02ED-447B-99D9-71AF89A7A965}

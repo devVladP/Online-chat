@@ -33,7 +33,7 @@ public class Message : Entity
 
     public async static Task<Message> Create(CreateMessageData data, 
         IUserMustExistChecker userMustExistChecker, 
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         await ValidateAsync(new CreateMessageValidator(userMustExistChecker), data, cancellationToken);
 
