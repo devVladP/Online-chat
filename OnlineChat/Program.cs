@@ -1,5 +1,6 @@
 using OnlineChat.Application;
 using OnlineChat.Infrastructure;
+using OnlineChat.Infrastructure.SignalR.Hubs;
 using OnlineChat.Persistence;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -25,6 +26,7 @@ namespace OnlineChat
                         : null);
             });
 
+            builder.Services.AddSignalR();
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddOnlineChatPersistence(builder.Configuration);
@@ -42,6 +44,7 @@ namespace OnlineChat
 
             app.UseAuthorization();
 
+            app.MapHub<ChatHub>("chat-hub");
 
             app.MapControllers();
 

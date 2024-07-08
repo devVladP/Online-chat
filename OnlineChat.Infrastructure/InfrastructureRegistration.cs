@@ -10,12 +10,16 @@ using OnlineChat.Infrastructure.Core.Domain.Messages;
 using OnlineChat.Infrastructure.Core.Domain.Users;
 using System.Reflection;
 
+
 namespace OnlineChat.Infrastructure;
 
 public static class InfrastructureRegistration
 {
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //SignalR
+        services.AddSignalRCore();
+
         //mediatR
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 

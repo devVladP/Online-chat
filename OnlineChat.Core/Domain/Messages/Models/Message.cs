@@ -2,6 +2,7 @@
 using OnlineChat.Core.Domain.Groups.Models;
 using OnlineChat.Core.Domain.Messages.Data;
 using OnlineChat.Core.Domain.Messages.Validators;
+using OnlineChat.Core.Domain.Users.Common;
 using OnlineChat.Core.Domain.Users.Models;
 
 namespace OnlineChat.Core.Domain.Messages.Models;
@@ -30,9 +31,11 @@ public class Message : Entity
         GroupId = groupId;
     }
 
-    public static Message Create(CreateMessageData data)
+    public async static Task<Message> Create(CreateMessageData data, 
+        IUserMustExistChecker userMustExistChecker, 
+        CancellationToken cancellationToken)
     {
-        Validate(new CreateMessageValidator(), data);
+        await ValidateAsync(new CreateMessageValidator(userMustExistChecker), data, cancellationToken);
 
         return new Message(data.Content, data.OwnerId, data.GroupId);
     }

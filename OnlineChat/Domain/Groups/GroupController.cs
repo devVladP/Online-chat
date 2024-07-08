@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using OnlineChat.Application.Domain.Groups.Commands.CreateGroup;
 using OnlineChat.Application.Domain.Groups.Commands.CreateUserGroup;
 using OnlineChat.Application.Domain.Groups.Commands.DeleteGroup;
@@ -10,13 +11,14 @@ using OnlineChat.Application.Domain.Groups.Queries.GetGroups;
 using OnlineChat.Common;
 using OnlineChat.Constants;
 using OnlineChat.Domain.Groups.Requests;
+using OnlineChat.Infrastructure.SignalR.Hubs;
 using PagesResponses;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineChat.Domain.Groups;
 
 [Route(Routes.Group)]
-public class GroupController(IMediator mediator) : ApiControllerBase
+public class GroupController(IMediator mediator, IHubContext<ChatHub> hubContext) : ApiControllerBase
 {
     [ProducesResponseType(typeof(GroupDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -79,18 +81,23 @@ public class GroupController(IMediator mediator) : ApiControllerBase
         var command = new DeleteGroupCommand(groupId, request.OwnerId);
         var id = await mediator.Send(command, cancellationToken);
 
+        await hubContext.Clients.Groups(groupId.ToString()).SendAsync("NotifyGroupDeleted", groupId);
+
         return Ok(id);
     }
 
-    [HttpPost("users/groups")]
+    [HttpPost("{userId}/{groupId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> AddUserGroupAsync(
-        [FromBody][Required] AddUserGroupRequest request,
+        [FromRoute][Required] Guid userId,
+        [FromRoute][Required] Guid groupId,
         CancellationToken cancellationToken = default)
     {
-        var command = new CreateUserGroupCommand(request.UserId, request.GroupId);
+        var command = new CreateUserGroupCommand(userId, groupId);
         await mediator.Send(command, cancellationToken);
+
+        await hubContext.Clients.Group(groupId.ToString()).SendAsync("JoinGroup", groupId);
 
         return Ok();
     }
@@ -105,6 +112,8 @@ public class GroupController(IMediator mediator) : ApiControllerBase
     {
         var command = new DeleteUserGroupCommand(userId, groupId);
         await mediator.Send(command, cancellationToken);
+
+        await hubContext.Clients.Group(groupId.ToString()).SendAsync("LeaveGroup", groupId);
 
         return Ok();
     }

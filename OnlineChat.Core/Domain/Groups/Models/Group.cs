@@ -2,6 +2,7 @@
 using OnlineChat.Core.Domain.Groups.Data;
 using OnlineChat.Core.Domain.Groups.Validators;
 using OnlineChat.Core.Domain.Messages.Models;
+using OnlineChat.Core.Domain.Users.Common;
 using OnlineChat.Core.Domain.Users.Models;
 
 namespace OnlineChat.Core.Domain.Groups.Models;
@@ -24,9 +25,11 @@ public class Group : Entity
     public IReadOnlyCollection<Message> Messages => _messages;
 
 
-    public static Group Create(CreateGroupData data)
+    public async static Task<Group> Create(CreateGroupData data, 
+        IUserMustExistChecker userMustExistChecker, 
+        CancellationToken cancellationToken)
     {
-        Validate(new CreateGroupValidator(), data);
+        await ValidateAsync(new CreateGroupValidator(userMustExistChecker), data, cancellationToken);
 
         return new Group
         {

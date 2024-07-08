@@ -1,15 +1,17 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using OnlineChat.Application.Domain.Messages.Commands.CreateMessage;
 using OnlineChat.Application.Domain.Messages.Queries.GetMessages;
 using OnlineChat.Common;
 using OnlineChat.Domain.Messages.Requests;
+using OnlineChat.Infrastructure.SignalR.Hubs;
 using PagesResponses;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineChat.Domain.Messages;
 
-public class MessageController(IMediator mediator) : ApiControllerBase
+public class MessageController(IMediator mediator, IHubContext<ChatHub> hubContext) : ApiControllerBase
 {
     [ProducesResponseType(typeof(MessageDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -19,6 +21,8 @@ public class MessageController(IMediator mediator) : ApiControllerBase
         CancellationToken cancellationToken = default)
     {
         var command = new CreateMessageCommand(request.Content, request.OwnerId, request.GroupId);
+        await hubContext.Clients.Group(request.GroupId.ToString())
+            .SendAsync("SendMessageToGroup", request.GroupId, request.OwnerId, request.Content);
 
         var messageId = await mediator.Send(command, cancellationToken);
         return Created(messageId);

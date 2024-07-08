@@ -20,7 +20,7 @@ internal class GetUsersQueryHandler(OnlineChatDbContext dbContext) : IRequestHan
 
         var users = await query
             .Skip(skipCount)
-            .Take(request.page)
+            .Take(request.pageSize)
             .Select(u => new UserDto
             {
                 Id = u.Id,
